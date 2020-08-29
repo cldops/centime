@@ -13,7 +13,11 @@ pipeline {
     }
     stage('maven build') {
       steps {
-        sh "mvn clean package"
+        script{
+          withMaven(maven: 'mvn') {
+            sh "mvn clean package"
+          }
+        }
       }
     }
     stage('Build dockerimage') {
