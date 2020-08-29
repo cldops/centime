@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: knote-svc
+spec:
+  selector:
+    app: note
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
+...

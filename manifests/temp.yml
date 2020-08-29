@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knote-deploy
+spec:
+  replicas: 2
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: note
+  template:
+    metadata:
+      labels:
+        app: note
+    spec:
+      containers:
+        - name: note
+          image: cldops/centime:tagstring
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongo:27017/dev
+...
