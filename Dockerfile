@@ -1,12 +1,11 @@
-FROM centos:7.5.1804
+FROM cldops/openjdk11:jdk-11.0.2.9-slim
 
 MAINTAINER RP
 
-RUN yum install -y epel-release && yum install -y nginx && yum clean all && rm -rf /var/cache/yum
+ENV PORT 8080
 
-#COPY blue.html /usr/share/nginx/html/index.html
-COPY green.html /usr/share/nginx/html/index.html
+COPY target/*.jar /opt/app.jar
 
-EXPOSE 80
+WORKDIR /opt
 
-CMD ["nginx","-g","daemon off;"]
+ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
