@@ -41,7 +41,9 @@ pipeline {
       steps{
         sh "chmod +x manifests/modifytag.sh"
         sh "./manifests/modifytag.sh $BUILD_NUMBER"
-        sh "kubectl apply -f manifests/mongo.yml -f manifests/deploy.yml -f manifests/service.yml"
+        sh "kubectl apply -f manifests/mongo.yml"
+        sh "kubectl apply -f manifests/deploy.yml"
+        sh "kubectl apply -f manifests/service.yml"
       }
     }
     stage('Remove Unused docker image') {
